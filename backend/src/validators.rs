@@ -54,3 +54,19 @@ pub fn validate_level3(password: String) -> ResultCheck {
     
     return result;
 }
+
+//Пароль проверяет количество символов в пароле
+pub fn validate_level4(password: String) -> ResultCheck {
+    let mut result = ResultCheck {
+        status: true,
+        message: String::from("Валидация уровня 3 успешно пройдена"),
+    };
+
+    let length_password = password.len();
+    if (length_password < 10) {
+        result.status = false;
+        result.message = String::from("Длина пароля должна быть больше 10 символов");
+    }
+    
+    return result;
+}

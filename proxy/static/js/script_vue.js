@@ -23,10 +23,11 @@ let app = new Vue({
          *  Метод отправляет запрос на проверку пароля
          */
         async checkPass() {
-            let url = 'http://127.0.0.1:3000/api/v1/' + this.actionCheckPassword;
+            let url = 'http://127.0.0.1/api/v1/' + this.actionCheckPassword;
             
             let headers = new Headers();
             headers.append("Content-Type", "application/x-www-form-urlencoded");
+
 
             let urlencoded = new URLSearchParams();
             urlencoded.append("password", this.password);
@@ -35,7 +36,6 @@ let app = new Vue({
               method: 'POST',
               headers: headers,
               body: urlencoded,
-              redirect: 'follow'
             };
 
             try {

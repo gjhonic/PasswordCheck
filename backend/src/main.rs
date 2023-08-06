@@ -50,7 +50,7 @@ async fn home() -> &'static str {
  * Метод принимает пароль и возвращает результат проверки
  */
 async fn check_password(Form(input): Form<Input>) -> impl IntoResponse {
-    let max_level :i8 = 3;
+    let max_level :i8 = 4;
     let result: ResultCheck = validate_password(input.password, max_level);
 
     let json = serde_json::to_string(&result).unwrap();
@@ -81,7 +81,10 @@ fn validate_password(password: String, level: i8) -> ResultCheck {
             },
             3 => {
                 result = validate_level3(password.clone());
-            }
+            },
+            4 => {
+                result = validate_level4(password.clone());
+            },
             _ => {
                 result = validate_level3(password.clone());
             }
