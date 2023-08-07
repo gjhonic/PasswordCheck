@@ -23,7 +23,7 @@ let app = new Vue({
          *  Метод отправляет запрос на проверку пароля
          */
         async checkPass() {
-            let url = 'http://127.0.0.1/api/v1/' + this.actionCheckPassword;
+            let url = 'api/v1/' + this.actionCheckPassword;
             
             let headers = new Headers();
             headers.append("Content-Type", "application/x-www-form-urlencoded");
