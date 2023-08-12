@@ -8,11 +8,16 @@ let app = new Vue({
             author: 'gjhonic',
         },
 
-        actionCheckPassword: 'check_password',
-        password: '123',
+        actionCheckPassword: 'check_scam_password',
+        password: '',
         message: '',
         statusCode: null,
         status: 0,
+        level: 0,
+        
+        statusErrorValidate: 1,
+        statusWeekPassword: 2,
+        statusGoodPassword: 3,
         
     },
     computed: {
@@ -43,9 +48,9 @@ let app = new Vue({
                 let data = await response.json();
                 if (response.ok) {
                     if (data !== []) {
-                        this.statusCode = data.status;
+                        this.status = data.status;
                         this.message = data.message;
-                        this.setStatus();
+                        this.level = data.level;
                     }
                 } else {
                     console.log('Ошибка')
@@ -53,17 +58,6 @@ let app = new Vue({
             } catch (e) {
                 console.log('Ошибка. ' + e);
             }
-        
         },
-        /**
-         *  Метод устанавливает статус
-         */
-        setStatus() {
-            if (this.statusCode === false) {
-                this.status = 1;
-            } else if (this.statusCode === true) {
-                this.status = 2;
-            }
-        }
     },
 });

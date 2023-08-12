@@ -66,15 +66,24 @@ stop: ##@Projects Останавливает проект
 
 del: ##@Projects Удаляет контейнеры
 	@echo "$(C_GREEN)Stop rust project $(CE)"
-	sudo docker stop password_check_backend_1
+	sudo docker stop passwordcheck_backend_1
 	@echo "$(C_RED)Delete rust project $(CE)"
-	sudo docker rm password_check_backend_1
+	sudo docker rm passwordcheck_backend_1
 	@echo ""
 
 	@echo "$(C_GREEN)Stop nginx proxy$(CE)"
-	sudo docker stop password_check_proxy_1
+	sudo docker stop passwordcheck_proxy_1
 	@echo "$(C_RED)Delete nginx proxy $(CE)"
-	sudo docker rm password_check_proxy_1
+	sudo docker rm passwordcheck_proxy_1
 	@echo ""
 
-	@echo "$(C_GREEN)Dockers delete$(CE)"
+	@echo "$(C_GREEN)Dockers containers deleted$(CE)"
+
+del-proxy: ##@Projects Удаляет прокси контейнер (что бы статиску обновить)
+	@echo "$(C_GREEN)Stop nginx proxy$(CE)"
+	sudo docker stop passwordcheck_proxy_1
+	@echo "$(C_RED)Delete nginx proxy $(CE)"
+	sudo docker rm passwordcheck_proxy_1
+	@echo ""
+
+	@echo "$(C_GREEN)Dockers container deleted$(CE)"	
