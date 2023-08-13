@@ -71,3 +71,11 @@ footer p {
   margin-left: auto;
   width: 100%;
 }
+
+.container-blue {
+  padding-top: 30px;
+}
+
+#my-nav-footer {
+  color:  white!important;
+}

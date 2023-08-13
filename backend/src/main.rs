@@ -6,6 +6,8 @@ use axum::{
     response::IntoResponse,
     Router,
 };
+use std::env;
+
 //Импортируем валидные проверки
 mod validators;
 use validators::*;
@@ -13,6 +15,8 @@ use validators::*;
 //Импортируем фейк проверки
 mod scamvalidators;
 use scamvalidators::*;
+
+//Импортируем тесты
 
 use serde::{Serialize, Deserialize};
 
@@ -25,14 +29,16 @@ struct Input {
 #[derive(Serialize, Deserialize)]
 #[allow(dead_code)]
 pub struct ResultCheck {
-    status: i8,
-    message: String,
-    level: i8,
+    pub status: i8,
+    pub message: String,
+    pub level: i8,
 }
 
 pub const ERROR_VALIDATE_STATUS: i8 = 1; //Ошибка валидации
 pub const WEEK_PASSWORD_STATUS: i8 = 2; //Слабый уровень пароля
 pub const GOOD_PASSWORD_STATUS: i8 = 3; //Сильный пароль
+
+const MODE_SERVER :&str = "1";
 
 use std::{net::SocketAddr};
 
@@ -72,7 +78,7 @@ async fn check_password(Form(input): Form<Input>) -> impl IntoResponse {
 /**
  * Метод запускает валидацию пароля
  */
-fn validate_password(password: String, level: i8) -> ResultCheck {
+pub fn validate_password(password: String, level: i8) -> ResultCheck {
     let mut result = ResultCheck {
         status: self::ERROR_VALIDATE_STATUS,
         message: String::from("Начало валидации"),
@@ -83,7 +89,7 @@ fn validate_password(password: String, level: i8) -> ResultCheck {
     while number_level <= level
     {
         match number_level {
-            1 => {
+            0 => {
                 result = validate_level0(password.clone());
             },
             1 => {
@@ -122,7 +128,7 @@ fn validate_password(password: String, level: i8) -> ResultCheck {
  * Метод принимает пароль и возвращает результат проверки (Шуточная проверка)
  */
 async fn check_scam_password(Form(input): Form<Input>) -> impl IntoResponse {
-    let max_level :i8 = 5;
+    let max_level :i8 = 13;
     let mut result: ResultCheck = validate_scam_password(input.password, max_level);
 
     if result.level == max_level {
@@ -139,7 +145,7 @@ async fn check_scam_password(Form(input): Form<Input>) -> impl IntoResponse {
 /**
  * Метод запускает валидацию пароля 
  */
-fn validate_scam_password(password: String, level: i8) -> ResultCheck {
+pub fn validate_scam_password(password: String, level: i8) -> ResultCheck {
     let mut result = ResultCheck {
         status: self::ERROR_VALIDATE_STATUS,
         message: String::from("Начало валидации"),
@@ -171,6 +177,27 @@ fn validate_scam_password(password: String, level: i8) -> ResultCheck {
             6 => {
                 result = validate_scam_level1(password.clone());
             },
+            7 => {
+                result = validate_scam_level2(password.clone());
+            },
+            8 => {
+                result = validate_scam_level3(password.clone());
+            },
+            9 => {
+                result = validate_scam_level4(password.clone());
+            },
+            10 => {
+                result = validate_scam_level5(password.clone());
+            },
+            11 => {
+                result = validate_scam_level6(password.clone());
+            },
+            12 => {
+                result = validate_scam_level7(password.clone());
+            },
+            13 => {
+                result = validate_scam_level8(password.clone());
+            },
             _ => {
                 result = validate_level0(password.clone());
             }
@@ -187,7 +214,6 @@ fn validate_scam_password(password: String, level: i8) -> ResultCheck {
     }
     return result;   
 }
-
 
 fn internal_error<E>(err: E) -> (StatusCode, String)
 where

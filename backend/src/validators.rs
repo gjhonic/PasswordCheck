@@ -4,7 +4,9 @@ use crate::WEEK_PASSWORD_STATUS;
 use crate::GOOD_PASSWORD_STATUS;
 use regex::Regex;
 
-//Валидация корректности введенного поля
+/// Метод проверяте корректность введенного поля
+/// 
+/// * `password` - Введеный пароль.
 pub fn validate_level0(password: String) -> ResultCheck {
     let mut result = ResultCheck {
         status: self::GOOD_PASSWORD_STATUS,
