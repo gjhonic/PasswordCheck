@@ -14,7 +14,7 @@ paths:
     post:
       tags:
         - PasswordCheck
-      summary: Аутентификация
+      summary: PasswordCheck
       description: Метод проверят сложность пароля (скам)
       operationId: auth
       requestBody:
