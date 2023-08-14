@@ -14,6 +14,10 @@ let app = new Vue({
         statusCode: null,
         status: 0,
         level: 0,
+
+        logs: [],
+        isShow: false,
+        messageLog: "Смотреть логи",
         
         statusErrorValidate: 1,
         statusWeekPassword: 2,
@@ -50,7 +54,8 @@ let app = new Vue({
                     if (data !== []) {
                         this.status = data.status;
                         this.message = data.message;
-                        this.level = data.level;
+                        this.level = Number(data.level) - 1;
+                        this.logs.unshift(data);
                     }
                 } else {
                     console.log('Ошибка')
@@ -59,5 +64,18 @@ let app = new Vue({
                 console.log('Ошибка. ' + e);
             }
         },
+
+        onEnter: function() {
+            this.checkPass();
+        },
+
+        showLogs() {
+            this.isShow = !this.isShow;
+            if (this.isShow == true) {
+                this.messageLog = "Скрыть логи";
+            } else {
+                this.messageLog = "Смотреть логи";
+            }
+        }
     },
 });

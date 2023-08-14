@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: PassworCheck
+  description: "PassworCheck (версия 0.2)"
+  version: 1.0.11
+externalDocs:
+  description: PasswordCheck
+  url: http://90.156.227.55/
+servers:
+  - url: /api/v1
+###
+paths:
+  /check_scam_password:
+    post:
+      tags:
+        - PasswordCheck
+      summary: Аутентификация
+      description: Метод проверят сложность пароля (скам)
+      operationId: auth
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordCheckQuery'
+        required: true
+      responses:
+        '200':
+          description: Успешная проверка пароля
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultCheck'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResultCheck'
+        '500':
+          description: Error check password
+components:
+  schemas:
+    PasswordCheckQuery:
+      type: object
+      properties:
+        password:
+          type: string
+    ResultCheck:
+      type: object
+      properties:
+        level:
+          type: integer
+          example: 1
+        message:
+          type: string
+          example: "В пароле должны быть буквы"
+        status:
+          type: integer
+          example: 1

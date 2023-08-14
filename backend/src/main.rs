@@ -128,7 +128,7 @@ pub fn validate_password(password: String, level: i8) -> ResultCheck {
  * Метод принимает пароль и возвращает результат проверки (Шуточная проверка)
  */
 async fn check_scam_password(Form(input): Form<Input>) -> impl IntoResponse {
-    let max_level :i8 = 13;
+    let max_level :i8 = 24;
     let mut result: ResultCheck = validate_scam_password(input.password, max_level);
 
     if result.level == max_level {
@@ -197,6 +197,39 @@ pub fn validate_scam_password(password: String, level: i8) -> ResultCheck {
             },
             13 => {
                 result = validate_scam_level8(password.clone());
+            },
+            14 => {
+                result = validate_scam_level9(password.clone());
+            },
+            15 => {
+                result = validate_scam_level10(password.clone());
+            },
+            16 => {
+                result = validate_scam_level11(password.clone());
+            },
+            17 => {
+                result = validate_scam_level12(password.clone());
+            },
+            18 => {
+                result = validate_scam_level13(password.clone());
+            },
+            19 => {
+                result = validate_scam_level14(password.clone());
+            },
+            20 => {
+                result = validate_scam_level15(password.clone());
+            },
+            21 => {
+                result = validate_scam_level16(password.clone());
+            },
+            22 => {
+                result = validate_scam_level17(password.clone());
+            },
+            23 => {
+                result = validate_scam_level18(password.clone());
+            },
+            24 => {
+                result = validate_scam_level19(password.clone());
             },
             _ => {
                 result = validate_level0(password.clone());

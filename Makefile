@@ -35,10 +35,6 @@ build: ##@Projects Запуск раст приложения на локале
 	@echo "$(C_GREEN)Build project $(CE)"
 	cd backend; cargo run -- 1
 
-test: ##@Projects Запуск тестов backend приложения
-	@echo "$(C_GREEN)Testing the application... $(CE)"
-	cd backend; cargo run -- 2
-
 up: ##@Projects Запуск проекта в режиме терминал
 	@echo "$(C_GREEN)Build docker project $(CE)"
 	sudo docker-compose build

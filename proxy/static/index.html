@@ -69,20 +69,24 @@
         </div>
 
         <div class="box-form-password">
-            <form>
-                <div class="form-group">
-                    <input  type="text" 
-                            class="form-control my-input-pass" 
-                            id="input-pass" 
-                            v-model="password"
-                            placeholder="Введите пароль">
-                </div>
-            </form>
-            <br>
-            <div class="btn btn-outline-primary btn-lg my-button-check"
-                    @click="checkPass()">
-                    Проверить
+            <div class="form-group">
+                <input  type="text" 
+                        class="form-control my-input-pass" 
+                        id="input-pass" 
+                        v-model="password"
+                        placeholder="Введите пароль"
+                        v-on:keyup.enter="onEnter">
             </div>
+            <br>
+            <div class="row">
+              <div class="btn btn-outline-primary btn-lg my-button-check" @click="checkPass()">
+                  Проверить
+              </div>
+              <div class="btn btn-outline-secondary btn-lg my-button-show" @click="showLogs()">
+                {{ messageLog }}
+              </div>
+            </div>
+            
         </div>
 
         <br>
@@ -97,8 +101,23 @@
             <div class="alert alert-success" role="alert" v-show="status == statusGoodPassword">
               {{ message }}
             </div>
-        </div>
 
+            <br>
+
+          <div v-show="isShow == true" class="logs-panel">
+          <h4>Попытки подобрать хороший пароль: </h4>
+            <template v-for="(logItem, num) in logs">
+              <div class="alert alert-secondary" role="alert">
+                Уровень: <strong>{{ logItem.level }}</strong> Сообщение: {{ logItem.message }}. 
+                <span v-show="level >= logItem.level" class="succes-check" title="Проверка пройдена">
+                  +
+                </span>
+                <span v-show="level < logItem.level" class="failed-check" title="Не прошел проверку">
+                  x
+                </span>
+              </div>
+            </template>
+        </div>
     </div>
 </main>
 
@@ -124,7 +143,7 @@ style="fill:#000000;">
         <ul class="list-unstyled text-small ">
           <li><a class="text-muted" id="my-nav-footer" href="#">Main</a></li>
           <li><a class="text-muted" id="my-nav-footer" href="#">Good check</a></li>
-          <li><a class="text-muted" id="my-nav-footer" href="#">Api Dock</a></li>
+          <li><a class="text-muted" id="my-nav-footer" href="api.html">Api Dock</a></li>
         
         </ul>
       </div>

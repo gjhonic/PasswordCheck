@@ -68,8 +68,12 @@ footer p {
 }
 
 .my-button-check {
-  margin-left: auto;
-  width: 100%;
+  width: 60%;
+  margin-right: 10px;
+}
+
+.my-button-show{
+  width: 30%;
 }
 
 .container-blue {
@@ -78,4 +82,20 @@ footer p {
 
 #my-nav-footer {
   color:  white!important;
+}
+
+.logs-panel{
+  overflow-y: auto;
+  max-height: 400px;
+  height: 400px;
+}
+
+.succes-check{
+  color: green;
+  font-weight: bold;;
+}
+
+.failed-check{
+  color: red;
+  font-weight: bold;;
 }
